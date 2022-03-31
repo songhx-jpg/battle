@@ -10,6 +10,12 @@
 				color: white;
 				box-shadow: 3px 3px 5px #888888;
 			}
+			button.a{
+				font-size: 12px;
+				background-color: green;
+				color: black;
+				box-shadow: 2px 2px 5px #989891;
+			}
 		</style>
 	</head>
 	<body>
@@ -18,8 +24,12 @@
 		<div style="text-align: center;">
 			<p style="font-size: 30px;">日志：<span id="dair"></span></p>
 			<button id="ca">普通攻击！！！</button>&nbsp;&nbsp;&nbsp;<button id="sup">使用超级技能！！！状态：<span id="active">可使用</span></button><br><hr>
+			<div style="right: 3px;">
+				输入作弊码，一次赚99999元:<input id="f" size="50"> <button class="a" id="sub">确认</button>
+			</div>
 			<button style="font-size: 48px;" id="bt1">赚钱！！已经赚了<span id="Ht"></span>元</button><br/>
 			<button style="display: none; font-size: 30px;" id="bt2">加班熬夜，每赚一次可以赚<span id="QwQ">1</span>元,需要<span id="cost">50</span>块钱</button><br>
+			<button style="display: none; font-size: 30px;" id="bt3">努力学习，每赚一次可以赚<span id="QwQ2">1</span>次,需要10000块钱</button><br>
 			<button style="font-size: 30px;" id="upd">训练拳法，可以提高攻击力，需要99999元</button>
 		</div>
 		<hr>
@@ -35,7 +45,7 @@
 		<script>
 			var level = 1;
 			var money = 0;
-			var llevel = 1;
+			var llevel = 50;
 			var costs = 50;
 			var atk = 1;
 			var act = [1,1,1,1,1,1,1];
@@ -49,6 +59,13 @@
 			var nowb = 10;
 			document.getElementById('lev').innerHTML = level;
 			document.getElementById('bl').innerHTML = ene[level];
+			document.getElementById('sub').onclick = function () {
+				var str = document.getElementById('f').value;
+				if(str == "yumingjiexianxineiqwq"){
+					llevel = 99999;
+					document.getElementById('QwQ').innerHTML = llevel;
+				} else alert("Wrong answer");
+			}
 			document.getElementById('ca').onclick = function () {
 				if(Math.random() * 12 < 1) {
 					document.getElementById('dair').innerHTML = "啊，竟然被闪避了呢～～～";
@@ -193,7 +210,10 @@
 			document.getElementById('bt1').onclick = function () {
 				money += ck * llevel;
 				document.getElementById('Ht').innerHTML = money;
-				if(money == 50) document.getElementById('bt2').style = "font-size: 30px;";
+				if(money == 50) {
+					document.getElementById('bt2').style = "font-size: 30px;";
+					document.getElementById('bt3').style = "font-size: 30px;";
+				}
 			}
 			document.getElementById('bt2').onclick = function () {
 				if(money >= costs) {
@@ -204,8 +224,14 @@
 					document.getElementById('cost').innerHTML = costs;
 					document.getElementById('Ht').innerHTML = money;
 				} else {
-					alert("money不足，请继续打!");
+					alert("money不足，请继续赚!");
 				}
+			}
+			document.getElementById('bt3').onclick = function () {
+				if(money >= 10000){
+					money -= 10000;
+					ck += 1;
+				} else alert("money不足，请继续赚！");
 			}
 			document.getElementById('lc').onclick = function () {
 				if(money >= 8000) {
