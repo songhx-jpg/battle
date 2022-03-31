@@ -37,7 +37,7 @@
 			<p>SHOP:</p>
 			<button id="ulc">使用英雄“刘仓”</button>&nbsp;<button id="lc">买购英雄“刘仓”，花费8000元</button>&nbsp;&nbsp;技能：5秒后对敌方造成高额伤害 cd:40s&nbsp;被动：普通攻击伤害提高<br>
 			<button id="uymjx">使用英雄“雨茗结弦”</button>&nbsp;<button id="ymjx">买购英雄“雨茗结弦”，花费100000元</button>&nbsp;&nbsp;技能：高速在冰上旋转身体，对对方造成持续3秒的伤害 cd:40s&nbsp;被动：无<br>
-			<button id="uyy">使用英雄“演员”</button>&nbsp;<button id="yy">买购英雄“演员”，花费2000000元</button>&nbsp;&nbsp;技能：对敌方造成一定伤害 cd:40s&nbsp;被动：每次使用技能，如果该技能斩杀敌方英雄，立刻恢复冷却<br>
+			<button id="uyy">使用英雄“演员”</button>&nbsp;<button id="yy">买购英雄“演员”，花费2000000元</button>&nbsp;&nbsp;技能：对敌方造成一定伤害 cd:12s&nbsp;被动：每次使用技能，如果该技能斩杀敌方英雄，立刻恢复冷却<br>
 			<button id="usyc">使用英雄“石译辰”</button>&nbsp;<button id="syc">买购英雄“石译辰”，花费2000000元</button>&nbsp;&nbsp;技能：改变形态 cd:6s&nbsp;被动：正常形态下，普攻伤害小幅增加，装X形态下，暴击概率小幅提升<br>
 			<button id="ujb">使用英雄“金箔”</button>&nbsp;<button id="jb">买购英雄“金箔”，花费2000000元</button>&nbsp;&nbsp;技能：下一次普通攻击造成巨额伤害，可叠加 cd:100s&nbsp;被动：普攻造成三段伤害<br>
 			<button id="uew">使用英雄“恶委”</button>&nbsp;<button id="ew">买购英雄“恶委”，花费2000000元</button>&nbsp;&nbsp;技能：在随机秒数后，突然恶心地方随机次，伤害随机 cd:1.5s&nbsp;被动：使用技能后cd减少随机秒<br>
@@ -160,6 +160,7 @@
 					}
 					var flag = 1;
 					if(k == 3){
+						CD = 12;
 						var at = atk * (Math.ceil(Math.random() * 10) + 40) + 5;
 						nowb -= at;
 						document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
