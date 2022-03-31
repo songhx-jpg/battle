@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>EDP 6-1 BATTLE</title>
+		<style>
+			button{
+				font-size: 30px;
+				background-color: black;
+				color: white;
+				box-shadow: 3px 3px 5px #888888;
+			}
+		</style>
+	</head>
+	<body>
+		<p style="font-size: 64px; text-align: center;">EDP 6-1 BATTLE</p>
+		<p style="font-size: 40px; text-align: center;">现在已经闯到<span id="lev"></span>关了！！对手还剩<span id="bl"></span>滴血，您现在的英雄是<span id="her">你自个儿</span></p>
+		<div style="text-align: center;">
+			<p style="font-size: 30px;">日志：<span id="dair"></span></p>
+			<button id="ca">普通攻击！！！</button>&nbsp;&nbsp;&nbsp;<button id="sup">使用超级技能！！！状态：<span id="active">可使用</span></button><br><hr>
+			<button style="font-size: 48px;" id="bt1">赚钱！！已经赚了<span id="Ht"></span>元</button><br/>
+			<button style="display: none; font-size: 30px;" id="bt2">加班熬夜，每赚一次可以赚<span id="QwQ">1</span>元,需要<span id="cost">50</span>块钱</button><br>
+			<button style="font-size: 30px;" id="upd">训练拳法，可以提高攻击力，需要99999元</button>
+		</div>
+		<hr>
+		<div style="text-align: center; font-size: 27px;">
+			<p>SHOP:</p>
+			<button id="ulc">使用英雄“刘仓”</button>&nbsp;<button id="lc">买购英雄“刘仓”，花费8000元</button>&nbsp;&nbsp;技能：5秒后对敌方造成高额伤害 cd:40s&nbsp;被动：普通攻击伤害提高<br>
+			<button id="uymjx">使用英雄“雨茗结弦”</button>&nbsp;<button id="ymjx">买购英雄“雨茗结弦”，花费100000元</button>&nbsp;&nbsp;技能：高速在冰上旋转身体，对对方造成持续3秒的伤害 cd:40s&nbsp;被动：无<br>
+			<button id="uyy">使用英雄“演员”</button>&nbsp;<button id="yy">买购英雄“演员”，花费2000000元</button>&nbsp;&nbsp;技能：对敌方造成一定伤害 cd:40s&nbsp;被动：每次使用技能，如果该技能斩杀敌方英雄，立刻恢复冷却<br>
+			<button id="usyc">使用英雄“石译辰”</button>&nbsp;<button id="syc">买购英雄“石译辰”，花费2000000元</button>&nbsp;&nbsp;技能：改变形态 cd:6s&nbsp;被动：正常形态下，普攻伤害小幅增加，装X形态下，暴击概率小幅提升<br>
+			<button id="ujb">使用英雄“金箔”</button>&nbsp;<button id="jb">买购英雄“金箔”，花费2000000元</button>&nbsp;&nbsp;技能：下一次普通攻击造成巨额伤害，可叠加 cd:100s&nbsp;被动：普攻造成三段伤害<br>
+			<button id="uew">使用英雄“恶委”</button>&nbsp;<button id="ew">买购英雄“恶委”，花费2000000元</button>&nbsp;&nbsp;技能：在随机秒数后，突然恶心地方随机次，伤害随机 cd:1.5s&nbsp;被动：使用技能后cd减少随机秒<br>
+		</div>
+		<script>
+			var level = 1;
+			var money = 0;
+			var llevel = 1;
+			var costs = 50;
+			var atk = 1;
+			var act = [1,1,1,1,1,1,1];
+			var vers = 0;
+			var k = 0;
+			var qh = 0;
+			var ck = 1;
+			var len = 32;
+			var lock = [1,0,0,0,0,0,0];
+			var ene = [1,10,20,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000,2000000,5000000,10000000,20000000,50000000,100000000,200000000,500000000,1000000000,2000000000,705032704,1410065408,2410065408,5410065408,10410065408,20410065408,10000000000000000000000000];
+			var nowb = 10;
+			document.getElementById('lev').innerHTML = level;
+			document.getElementById('bl').innerHTML = ene[level];
+			document.getElementById('ca').onclick = function () {
+				if(Math.random() * 12 < 1) {
+					document.getElementById('dair').innerHTML = "啊，竟然被闪避了呢～～～";
+					return;
+				}
+				var at = atk;
+				if(k == 1){
+					at = atk + Math.ceil(Math.random() * 3);
+				} else if(k == 4 && vers == 0) at *= Math.ceil(Math.random() * at / 10 + 3) + 1.5;
+				if(Math.ceil(Math.random() * 8) == 1 || (k == 4 && vers == 1 && Math.ceil(Math.random() * 4) == 2)) {
+					at *= 6;
+				}
+				if(qh >= 1 && k == 5){
+					at *= 18 + Math.random() * 5;
+					qh -= 1;
+				}
+				at = Math.ceil(at);
+				document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+				nowb -= at;
+				if(nowb <= 0){
+					level += 1;
+					nowb = ene[level];
+				}
+				document.getElementById('lev').innerHTML = level;
+				document.getElementById('bl').innerHTML = nowb;
+				if(k == 5){
+					setTimeout(function () {
+						document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+						nowb -= Math.ceil(at / 8);
+						if(nowb <= 0){
+							level += 1;
+							nowb = ene[level];
+						}
+						document.getElementById('lev').innerHTML = level;
+						document.getElementById('bl').innerHTML = nowb;
+					}, Math.random() * 2000);
+					setTimeout(function () {
+						document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+						nowb -= Math.ceil(at / 8);
+						if(nowb <= 0){
+							level += 1;
+							nowb = ene[level];
+						}
+						document.getElementById('lev').innerHTML = level;
+						document.getElementById('bl').innerHTML = nowb;
+					}, Math.random() * 2000);
+				}
+			} 
+			document.getElementById('sup').onclick = function () {
+				if(act[k] == 1){
+					act[k] = 0;
+					document.getElementById('active').innerHTML = "冷却中";
+					if(Math.random() * 25 < 1) {
+						document.getElementById('dair').innerHTML = "啊，竟然被闪避了呢～～～";
+						setTimeout(function () {
+							act[k] = 1;
+							document.getElementById('active').innerHTML = "可使用";
+						}, 100000);
+						return;
+					}
+					var CD = 40;
+					if(k == 1){
+						setTimeout(function () {
+							var at = atk * (Math.ceil(Math.random() * 10) + 60);
+							nowb -= at;
+							document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+							if(nowb <= 0){
+								level += 1;
+								nowb = ene[level];
+							}
+							document.getElementById('lev').innerHTML = level;
+							document.getElementById('bl').innerHTML = nowb;
+						}, 5000);
+					}
+					if(k == 0) {
+						alert("该英雄没有技能！！");
+					}
+					if(k == 2){
+						for(var i = 100; i <= 3000; i+=100){
+							setTimeout(function () {
+								var at = (atk + Math.ceil(Math.random() * 10)) * 2;
+								nowb -= at;
+								document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+								if(nowb <= 0){
+									level += 1;
+									nowb = ene[level];
+								}
+								document.getElementById('lev').innerHTML = level;
+								document.getElementById('bl').innerHTML = nowb;
+							}, i);
+						}
+					}
+					var flag = 1;
+					if(k == 3){
+						var at = atk * (Math.ceil(Math.random() * 10) + 40) + 5;
+						nowb -= at;
+						document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+						if(nowb <= 0){
+							level += 1;
+							nowb = ene[level];
+							flag = 0;
+						}
+						document.getElementById('lev').innerHTML = level;
+						document.getElementById('bl').innerHTML = nowb;
+					}
+					if(k == 4){
+						CD = 6;
+						vers += 1;
+						vers %= 2;
+					}
+					if(k == 5){
+						qh += 1;
+						CD = 100;
+					}
+					if(k == 6){
+						CD = 1.5;
+						var sec = Math.ceil(Math.random() * 3000) + 1000;
+						var at = 0;
+						setTimeout(function () {
+							at += Math.ceil(Math.random() * (atk * 12)) * Math.ceil(Math.random() * 7);
+							nowb -= at;
+							document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+							if(nowb <= 0){
+								level += 1;
+								nowb = ene[level];
+								flag = 0;
+							}
+							document.getElementById('lev').innerHTML = level;
+							document.getElementById('bl').innerHTML = nowb;
+						}, sec);
+						CD -= Math.random() * 0.6;
+					}
+					setTimeout(function () {
+						act[k] = 1;
+						document.getElementById('active').innerHTML = "可使用";
+					}, CD * 1000 * flag);
+				} else {
+					alert("技能未准备好！！");
+				}
+			}
+			document.getElementById('Ht').innerHTML = money;
+			document.getElementById('bt1').onclick = function () {
+				money += ck * llevel;
+				document.getElementById('Ht').innerHTML = money;
+				if(money == 50) document.getElementById('bt2').style = "font-size: 30px;";
+			}
+			document.getElementById('bt2').onclick = function () {
+				if(money >= costs) {
+					llevel+=1;
+					money-=costs;
+					costs+=2;
+					document.getElementById('QwQ').innerHTML = llevel;
+					document.getElementById('cost').innerHTML = costs;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("money不足，请继续打!");
+				}
+			}
+			document.getElementById('lc').onclick = function () {
+				if(money >= 8000) {
+					money -= 8000;
+					document.getElementById('lc').style = "display: none;";
+					lock[1] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("刘仓对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('ulc').onclick = function () {
+				if(lock[1] == 1) {
+					k = 1;
+					if(act[1] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "刘仓";
+				} else alert('未解锁');
+			}
+			document.getElementById('ymjx').onclick = function () {
+				if(money >= 100000) {
+					money -= 100000;
+					document.getElementById('ymjx').style = "display: none;";
+					lock[2] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("雨茗结弦对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('uymjx').onclick = function () {
+				if(lock[2] == 1) {
+					k = 2;
+					if(act[2] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "雨茗结弦";
+				} else alert('未解锁');
+			}
+			document.getElementById('yy').onclick = function () {
+				if(money >= 2000000) {
+					money -= 2000000;
+					document.getElementById('yy').style = "display: none;";
+					lock[3] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("演员对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('uyy').onclick = function () {
+				if(lock[3] == 1) {
+					k = 3;
+					if(act[3] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "演员";
+				} else alert('未解锁');
+			}
+			document.getElementById('syc').onclick = function () {
+				if(money >= 2000000) {
+					money -= 2000000;
+					document.getElementById('syc').style = "display: none;";
+					lock[4] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("石译辰对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('usyc').onclick = function () {
+				if(lock[4] == 1) {
+					k = 4;
+					if(act[4] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "石译辰";
+				} else alert('未解锁');
+			}
+			document.getElementById('jb').onclick = function () {
+				if(money >= 2000000) {
+					money -= 2000000;
+					document.getElementById('jb').style = "display: none;";
+					lock[5] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("金箔对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('ujb').onclick = function () {
+				if(lock[5] == 1) {
+					k = 5;
+					if(act[5] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "金箔";
+				} else alert('未解锁');
+			}
+			document.getElementById('ew').onclick = function () {
+				if(money >= 2000000) {
+					money -= 2000000;
+					document.getElementById('ew').style = "display: none;";
+					lock[6] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("恶委对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('uew').onclick = function () {
+				if(lock[6] == 1) {
+					k = 6;
+					if(act[6] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "恶委";
+				} else alert('未解锁');
+			}
+			document.getElementById('upd').onclick = function () {
+				if(money >= 99999){
+					money -= 99999;
+					atk+=1;
+					document.getElementById('Ht').innerHTML = money;
+				} else alert("money不足！！！");
+			}
+		</script>
+	</body>
+</html>
