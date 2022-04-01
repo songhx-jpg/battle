@@ -19,6 +19,22 @@
 		</style>
 	</head>
 	<body>
+		<button style="right: 5px; top: 5px;" id="tbmxo">特别鸣谢</button>
+		<div style="display: none;" id="tbmx">
+			<hr>
+			<div style="font-size: 40px;text-align: center;">
+				<button id="close">关闭</button>
+				<p>特别鸣谢：（<span style="color: red;">红色</span>为加倍感谢）</p>
+				<p style="color: red;">RomeoCR7（演员），感谢ta通过了fwrxch审核，并且首次试玩，还提出了很好的建议</p>
+				<p>liucang，给我了创作灵感，在我最无助的时候<s>恶心</s>陪我</p>
+				<p>Ian_Shi_rdfz（syc），感谢ta通过fwrxch审核，并且提出建议</p>
+				<p>LKZHANGNN（张棕名），感谢ta<span style="color: red;">主动</span>通过了fwrxch审核</p>
+				<br>
+				<p>如果有好的英雄点子，请联系本人谢谢</p>
+				<p>rdfzEDP61内部游戏 - By - songhx</p>
+			</div>
+			<hr>
+		</div>
 		<p style="font-size: 64px; text-align: center;">EDP 6-1 BATTLE</p>
 		<p style="font-size: 40px; text-align: center;">现在已经闯到<span id="lev"></span>关了！！对手还剩<span id="bl"></span>滴血，您现在的英雄是<span id="her">你自个儿</span></p>
 		<div style="text-align: center;">
@@ -37,9 +53,11 @@
 			<button id="ulc">使用英雄“刘仓”</button>&nbsp;<button id="lc">买购英雄“刘仓”，花费8000元</button>&nbsp;&nbsp;技能：5秒后对敌方造成高额伤害 cd:40s&nbsp;被动：普通攻击伤害提高<br>
 			<button id="uymjx">使用英雄“雨茗结弦”</button>&nbsp;<button id="ymjx">买购英雄“雨茗结弦”，花费100000元</button>&nbsp;&nbsp;技能：高速在冰上旋转身体，对对方造成持续3秒的伤害 cd:40s&nbsp;被动：无<br>
 			<button id="uyy">使用英雄“演员”</button>&nbsp;<button id="yy">买购英雄“演员”，花费2000000元</button>&nbsp;&nbsp;技能：对敌方造成一定伤害 cd:9s&nbsp;被动：每次使用技能，如果该技能斩杀敌方英雄，立刻恢复冷却<br>
-			<button id="usyc">使用英雄“石译辰”</button>&nbsp;<button id="syc">买购英雄“石译辰”，花费2000000元</button>&nbsp;&nbsp;技能：改变形态 cd:6s&nbsp;被动：正常形态下，普攻伤害小幅增加，装X形态下，暴击概率小幅提升<br>
+			<button id="usyc">使用英雄“syc”</button>&nbsp;<button id="syc">买购英雄“syc”，花费2000000元</button>&nbsp;&nbsp;技能：改变形态 cd:6s&nbsp;被动：正常形态下，普攻伤害小幅增加，装X形态下，暴击概率小幅提升<br>
 			<button id="ujb">使用英雄“金箔”</button>&nbsp;<button id="jb">买购英雄“金箔”，花费2000000元</button>&nbsp;&nbsp;技能：下一次普通攻击造成巨额伤害，可叠加 cd:7s&nbsp;被动：普攻造成三段伤害<br>
 			<button id="uew">使用英雄“恶委”</button>&nbsp;<button id="ew">买购英雄“恶委”，花费2000000元</button>&nbsp;&nbsp;技能：在随机秒数后，突然恶心地方随机次，伤害随机 cd:2.5s&nbsp;被动：使用技能后cd减少随机秒<br>
+			<button id="ufqd">使用英雄“fqd”</button>&nbsp;<button id="fqd">买购英雄“fqd”，花费20000000元</button>&nbsp;&nbsp;技能：向敌方丢一本深进，造成巨额伤害，然后在3秒内造成2点伤害150次 cd:120s&nbsp;被动：对敌方造成伤害时，赚一次钱，第一次使用技能无CD（BUG成了特性「doge」）<br>
+			<button id="uzzm">使用英雄“张棕名”</button>&nbsp;<button id="zzm">买购英雄“张棕名”，花费20000000元</button>&nbsp;&nbsp;技能：3秒后对敌方造成一定伤害 cd:80s&nbsp;被动：技能造成伤害的同时，如果对方受到了张棕名的伤害，则立刻刷新大招CD<br>
 		</div>
 		<script>
 			var level = 1;
@@ -47,7 +65,7 @@
 			var llevel = 1;
 			var costs = 50;
 			var atk = 1;
-			var act = [1,1,1,1,1,1,1];
+			var act = [1,1,1,1,1,1,1,1,1,1,1];
 			var vers = 0;
 			var k = 0;
 			var qh = 0;
@@ -56,6 +74,13 @@
 			var lock = [1,0,0,0,0,0,0];
 			var ene = [1,10,20,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000,2000000,5000000,10000000,20000000,50000000,100000000,200000000,500000000,1000000000,2000000000,705032704,1410065408,2410065408,5410065408,10410065408,20410065408,10000000000000000000000000];
 			var nowb = 10;
+			document.getElementById('tbmxo').onclick = function () {
+				document.getElementById('tbmx').style = "z-index: 30; top:5px";
+				return;
+			}
+			document.getElementById('close').onclick = function () {
+				document.getElementById('tbmx').style = "display: none;";
+			}
 			document.getElementById('lev').innerHTML = level;
 			document.getElementById('bl').innerHTML = ene[level];
 			document.getElementById('sub').onclick = function () {
@@ -68,7 +93,18 @@
 					money = tmp;
 					document.getElementById('Ht').innerHTML = tmp;
 					document.getElementById('QwQ').innerHTML = llevel;
+				} if (str == "2021edp61"){
+					money = 9999999999999;
+					document.getElementById('Ht').innerHTML = money;
 				} else alert("Wrong answer");
+			}
+			document.getElementById('bt1').onclick = function () {
+				money += ck * llevel;
+				document.getElementById('Ht').innerHTML = money;
+				if(money == 50) {
+					document.getElementById('bt2').style = "font-size: 30px;";
+					document.getElementById('bt3').style = "font-size: 30px;";
+				}
 			}
 			document.getElementById('ca').onclick = function () {
 				if(Math.random() * 12 < 1) {
@@ -89,6 +125,7 @@
 				at = Math.ceil(at);
 				document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
 				nowb -= at;
+				if(k == 7) document.getElementById('bt1').onclick();
 				if(nowb <= 0){
 					level += 1;
 					nowb = ene[level];
@@ -118,7 +155,7 @@
 					}, Math.random() * 2000);
 				}
 			} 
-			var cdlist = [0,40,40,12,0,7,2.5];
+			var cdlist = [0,40,40,12,0,7,2.5,120,80];
 			document.getElementById('sup').onclick = function () {
 				if(act[k] == 1){
 					act[k] = 0;
@@ -204,6 +241,65 @@
 						}, sec);
 						CD -= Math.random() * 0.6;
 					}
+					if(k == 7){
+						CD = 120;
+						var at = 80 * atk;
+						nowb -= at;
+						document.getElementById('bt1').onclick();
+						document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+						if(nowb <= 0){
+							level += 1;
+							nowb = ene[level];
+							flag = 0;
+						}
+						document.getElementById('lev').innerHTML = level;
+						document.getElementById('bl').innerHTML = nowb;
+						for(var i = 20; i <= 3000; i+=20){
+							setTimeout(function () {
+								nowb -= 2;
+								document.getElementById('bt1').onclick();
+								document.getElementById('dair').innerHTML = "造成了" + ("" + 2) + "点伤害";
+								if(nowb <= 0){
+									level += 1;
+									nowb = ene[level];
+									flag = 0;
+								}
+								document.getElementById('lev').innerHTML = level;
+								document.getElementById('bl').innerHTML = nowb;
+							}, i);
+						}
+					}
+					if(k == 8){
+						CD = 99009;
+						setTimeout(function () {
+							var at = (Math.ceil(Math.random() * 4) + 10) * atk;
+							nowb -= at;
+							document.getElementById('dair').innerHTML = "造成了" + ("" + at) + "点伤害";
+							if(nowb <= 0){
+								level += 1;
+								nowb = ene[level];
+								flag = 0;
+							}
+							document.getElementById('lev').innerHTML = level;
+							document.getElementById('bl').innerHTML = nowb;
+						}, 3000);
+						var tmp;
+						var flag = 0;
+						setTimeout(function () {
+							tmp = nowb;
+						}, 2939);
+						setTimeout(function () {
+							if(tmp == nowb){
+								act[k] = 0;
+								document.getElementById('active').innerHTML = "冷却中";
+								setTimeout(function () {
+									act[k] = 1;
+									document.getElementById('active').innerHTML = "可使用";
+								}, 80 * 1000 * flag);
+							}
+						}, 3050);
+					}
+					if(CD == 99009) return;
 					setTimeout(function () {
 						act[k] = 1;
 						document.getElementById('active').innerHTML = "可使用";
@@ -213,14 +309,6 @@
 				}
 			}
 			document.getElementById('Ht').innerHTML = money;
-			document.getElementById('bt1').onclick = function () {
-				money += ck * llevel;
-				document.getElementById('Ht').innerHTML = money;
-				if(money == 50) {
-					document.getElementById('bt2').style = "font-size: 30px;";
-					document.getElementById('bt3').style = "font-size: 30px;";
-				}
-			}
 			document.getElementById('bt2').onclick = function () {
 				if(money >= costs) {
 					llevel+=1;
@@ -300,7 +388,7 @@
 					lock[4] = 1;
 					document.getElementById('Ht').innerHTML = money;
 				} else {
-					alert("石译辰对你说：钱不够别来找我！");
+					alert("syc对你说：钱不够别来找我！");
 				}
 			}
 			document.getElementById('usyc').onclick = function () {
@@ -308,7 +396,7 @@
 					k = 4;
 					if(act[4] == 1) document.getElementById('active').innerHTML = "可使用";
 					else document.getElementById('active').innerHTML = "冷却中";
-					document.getElementById('her').innerHTML = "石译辰";
+					document.getElementById('her').innerHTML = "syc";
 				} else alert('未解锁');
 			}
 			document.getElementById('jb').onclick = function () {
@@ -345,6 +433,42 @@
 					if(act[6] == 1) document.getElementById('active').innerHTML = "可使用";
 					else document.getElementById('active').innerHTML = "冷却中";
 					document.getElementById('her').innerHTML = "恶委";
+				} else alert('未解锁');
+			}
+			document.getElementById('fqd').onclick = function () {
+				if(money >= 20000000) {
+					money -= 20000000;
+					document.getElementById('fqd').style = "display: none;";
+					lock[7] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("fqd对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('ufqd').onclick = function () {
+				if(lock[7] == 1) {
+					k = 7;
+					if(act[7] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "fqd";
+				} else alert('未解锁');
+			}
+			document.getElementById('zzm').onclick = function () {
+				if(money >= 20000000) {
+					money -= 20000000;
+					document.getElementById('zzm').style = "display: none;";
+					lock[8] = 1;
+					document.getElementById('Ht').innerHTML = money;
+				} else {
+					alert("张棕名对你说：钱不够别来找我！");
+				}
+			}
+			document.getElementById('uzzm').onclick = function () {
+				if(lock[8] == 1) {
+					k = 8;
+					if(act[8] == 1) document.getElementById('active').innerHTML = "可使用";
+					else document.getElementById('active').innerHTML = "冷却中";
+					document.getElementById('her').innerHTML = "张棕名";
 				} else alert('未解锁');
 			}
 			document.getElementById('upd').onclick = function () {
